@@ -34,4 +34,15 @@ public class ItemDAOImpl {
         pstm.setString(1, code);
         return pstm.executeUpdate() > 0;
     }
+
+
+    public boolean saveItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
+        pstm.setString(1, dto.getCode());
+        pstm.setString(2, dto.getDescription());
+        pstm.setString(3, String.valueOf(dto.getUnitPrice()));
+        pstm.setString(4, String.valueOf(dto.getQtyOnHand()));
+        return pstm.executeUpdate() > 0;
+    }
 }
