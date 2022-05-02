@@ -1,6 +1,5 @@
 package view.tdm;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -8,7 +7,7 @@ import java.math.BigDecimal;
  * @since : 0.1.0
  **/
 
-public class ItemTM  {
+public class ItemTM implements Comparable<ItemTM> {
     private String code;
     private String description;
     private BigDecimal unitPrice;
@@ -64,5 +63,10 @@ public class ItemTM  {
                 ", unitPrice=" + unitPrice +
                 ", qtyOnHand=" + qtyOnHand +
                 '}';
+    }
+
+    @Override
+    public int compareTo(ItemTM o) {
+        return code.compareTo(o.getCode());
     }
 }
