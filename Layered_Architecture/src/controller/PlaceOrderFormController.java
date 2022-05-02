@@ -235,11 +235,11 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Item");
-            while (rst.next()) {
-                cmbItemCode.getItems().add(rst.getString("code"));
+            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            ArrayList<ItemDTO> allItems = itemDAO.getAllItems();
+
+            for (ItemDTO item : allItems) {
+                cmbItemCode.getItems().add(item.getCode());
             }
 
         } catch (SQLException e) {
