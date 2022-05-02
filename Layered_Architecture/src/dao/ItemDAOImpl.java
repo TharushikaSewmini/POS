@@ -63,5 +63,16 @@ public class ItemDAOImpl {
         return pstm.executeQuery().next();
     }
 
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        ResultSet rst = connection.createStatement().executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
+        if (rst.next()) {
+            String code = rst.getString("code");
+            int newCustomerId = Integer.parseInt(code.replace("I00-", "")) + 1;
+            return String.format("I00-%03d", newCustomerId);
+        } else {
+            return "I00-001";
+        }
+    }
 
 }

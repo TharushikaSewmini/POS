@@ -226,15 +226,8 @@ public class ManageItemsFormController {
 
     private String generateNewId() {
         try {
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            ResultSet rst = connection.createStatement().executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
-            if (rst.next()) {
-                String id = rst.getString("code");
-                int newItemId = Integer.parseInt(id.replace("I00-", "")) + 1;
-                return String.format("I00-%03d", newItemId);
-            } else {
-                return "I00-001";
-            }
+            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            return itemDAO.generateNewID();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -242,6 +235,18 @@ public class ManageItemsFormController {
             e.printStackTrace();
         }
 
-        return "I00-001";
+        if (tblItems.getItems().isEmpty()) {
+            return "I00-001";
+        }else {
+            String code = getLastItemCode();
+            int newItemCode = Integer.parseInt(code.replace("I", "")) + 1;
+            return String.format("I00-%03d", newItemCode);
+        }
+    }
+
+    private String getLastItemCode() {
+        List<ItemTM> tempItemsList = new ArrayList<>(tblItems.getItems());
+        Collections.sort(tempItemsList);
+        return tempItemsList.get(tempItemsList.size() - 1).getCode();
     }
 }
