@@ -80,6 +80,8 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
 
+            // Tight Coupling
+            // No DI
             ItemDAOImpl itemDAO = new ItemDAOImpl();
             ArrayList<ItemDTO> allItems = itemDAO.getAllItems();
             for (ItemDTO item : allItems) {
@@ -141,6 +143,10 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
+
+            // Tight Coupling
+            // No DI
+            // Boilerplate Code
             ItemDAOImpl itemDAO = new ItemDAOImpl();
             itemDAO.deleteItem(code);
 
@@ -182,6 +188,9 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, code + " already exists").show();
                 }
                 //Save Item
+                // Tight Coupling
+                // No DI
+                // Boilerplate Code
                 ItemDAOImpl itemDAO = new ItemDAOImpl();
                 itemDAO.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
@@ -199,6 +208,9 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
+                // Tight Coupling
+                // No DI
+                // Boilerplate Code
                 ItemDAOImpl itemDAO = new ItemDAOImpl();
                 itemDAO.updateItem(new ItemDTO(code, description, unitPrice,qtyOnHand));
 
@@ -219,6 +231,9 @@ public class ManageItemsFormController {
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
+        // Tight Coupling
+        // No DI
+        // Boilerplate Code
         ItemDAOImpl itemDAO = new ItemDAOImpl();
         return itemDAO.existItem(code);
     }
@@ -226,6 +241,9 @@ public class ManageItemsFormController {
 
     private String generateNewId() {
         try {
+            // Tight Coupling
+            // No DI
+            // Boilerplate Code
             ItemDAOImpl itemDAO = new ItemDAOImpl();
             return itemDAO.generateNewID();
 
