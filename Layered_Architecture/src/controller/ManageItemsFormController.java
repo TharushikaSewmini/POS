@@ -46,6 +46,9 @@ public class ManageItemsFormController {
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
 
+    //Property Injection (DI)
+    public final ItemDAO itemDAO = new ItemDAOImpl();
+
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -82,8 +85,6 @@ public class ManageItemsFormController {
             /*Get all items*/
 
             // Loose Coupling
-            // No DI
-            ItemDAO itemDAO = new ItemDAOImpl();
             ArrayList<ItemDTO> allItems = itemDAO.getAllItems();
             for (ItemDTO item : allItems) {
                 tblItems.getItems().add(new ItemTM(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
@@ -146,9 +147,6 @@ public class ManageItemsFormController {
             }
 
             // Loose Coupling
-            // No DI
-            // Boilerplate Code
-            ItemDAO itemDAO = new ItemDAOImpl();
             itemDAO.deleteItem(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -190,9 +188,6 @@ public class ManageItemsFormController {
                 }
                 //Save Item
                 // Loose Coupling
-                // No DI
-                // Boilerplate Code
-                ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -210,9 +205,6 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
                 // Loose Coupling
-                // No DI
-                // Boilerplate Code
-                ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.updateItem(new ItemDTO(code, description, unitPrice,qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -233,9 +225,6 @@ public class ManageItemsFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
         // Loose Coupling
-        // No DI
-        // Boilerplate Code
-        ItemDAO itemDAO = new ItemDAOImpl();
         return itemDAO.existItem(code);
     }
 
@@ -243,9 +232,6 @@ public class ManageItemsFormController {
     private String generateNewId() {
         try {
             // Loose Coupling
-            // No DI
-            // Boilerplate Code
-            ItemDAO itemDAO = new ItemDAOImpl();
             return itemDAO.generateNewID();
 
         } catch (SQLException e) {
