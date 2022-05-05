@@ -1,11 +1,11 @@
 package dao;
 
 import db.DBConnection;
-import model.CustomerDTO;
 import model.OrderDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO, String> {
 
     @Override
     public boolean save(OrderDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)", dto.getOrderId(),dto.getOrderDate(),dto.getCustomerId());
     }
 
     @Override
@@ -31,8 +31,8 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO, String> {
     }
 
     @Override
-    public boolean exist(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean exist(String oId) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?",oId).next();
     }
 
     @Override
@@ -42,23 +42,8 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO, String> {
 
     @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {
-        return null;
+        ResultSet rst = SQLUtil.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
+        return (rst.next()) ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1) ): "OID-001";
     }
 
-
-    /*public boolean existOrder(String id) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT oid FROM `Orders` WHERE oid=?");
-        pstm.setString(1, id);
-        return pstm.executeQuery().next();
-    }
-
-    public boolean saveOrder(OrderDTO dto) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
-        pstm.setString(1, dto.getOrderId());
-        pstm.setString(2, String.valueOf(dto.getOrderDate()));
-        pstm.setString(3, dto.getCustomerId());
-        return pstm.executeUpdate() > 0;
-    }*/
 }
