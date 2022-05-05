@@ -42,7 +42,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     // Property Injection (DI)
-    public final CrudDAO customerDAO = new CustomerDAOImpl();
+    public final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -153,7 +153,7 @@ public class ManageCustomersFormController {
                 }
 
                 // Loose Coupling
-                customerDAO.save(new CustomerDTO());
+                customerDAO.save(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -172,7 +172,7 @@ public class ManageCustomersFormController {
 
                 //Customer update
                 // Loose Coupling
-                customerDAO.updateCustomer(new CustomerDTO(id, name, address));
+                customerDAO.update(new CustomerDTO(id, name, address));
 
 
             } catch (SQLException e) {
@@ -193,7 +193,7 @@ public class ManageCustomersFormController {
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         // Loose Coupling
-        return customerDAO.existCustomer(id);
+        return customerDAO.exist(id);
     }
 
 
@@ -206,7 +206,7 @@ public class ManageCustomersFormController {
             }
 
             // Loose Coupling
-            customerDAO.deleteCustomer(id);
+            customerDAO.delete(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
