@@ -77,7 +77,7 @@ public class ManageCustomersFormController {
         try {
 
             // Loose Coupling
-            ArrayList<CustomerDTO> allCustomers = customerDAO.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDAO.getAll();
 
             for (CustomerDTO customer : allCustomers) {
                 tblCustomers.getItems().add(new CustomerTM(customer.getId(), customer.getName(), customer.getAddress()));
@@ -153,7 +153,7 @@ public class ManageCustomersFormController {
                 }
 
                 // Loose Coupling
-                customerDAO.saveCustomer(new CustomerDTO(id, name, address));
+                customerDAO.save(new CustomerDTO());
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
