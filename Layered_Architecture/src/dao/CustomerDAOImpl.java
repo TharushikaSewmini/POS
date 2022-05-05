@@ -1,7 +1,6 @@
 package dao;
 
 import model.CustomerDTO;
-import model.ItemDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
  **/
 
 public class CustomerDAOImpl implements CrudDAO<CustomerDTO, String> {
+
     @Override
     public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Customer");

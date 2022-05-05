@@ -236,19 +236,6 @@ public class ManageItemsFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        if (tblItems.getItems().isEmpty()) {
-            return "I00-001";
-        }else {
-            String code = getLastItemCode();
-            int newItemCode = Integer.parseInt(code.replace("I", "")) + 1;
-            return String.format("I00-%03d", newItemCode);
-        }
-    }
-
-    private String getLastItemCode() {
-        List<ItemTM> tempItemsList = new ArrayList<>(tblItems.getItems());
-        Collections.sort(tempItemsList);
-        return tempItemsList.get(tempItemsList.size() - 1).getCode();
+        return "I00-001";
     }
 }

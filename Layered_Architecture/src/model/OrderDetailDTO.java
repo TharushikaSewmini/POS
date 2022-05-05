@@ -64,11 +64,12 @@ public class OrderDetailDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderDetailDTO{" +
-                "oid='" + oid + '\'' +
-                ", itemCode='" + itemCode + '\'' +
-                ", qty=" + qty +
-                ", unitPrice=" + unitPrice +
-                '}';
+        final StringBuffer sb = new StringBuffer("OrderDetailDTO{");
+        sb.append("oid='").append(oid).append('\'');
+        sb.append(", itemCode='").append(itemCode).append('\'');
+        sb.append(", qty=").append(qty);
+        sb.append(", unitPrice=").append(unitPrice);
+        sb.append('}');
+        return sb.toString();
     }
 }

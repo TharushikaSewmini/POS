@@ -1,7 +1,5 @@
 package dao;
 
-import db.DBConnection;
-import model.CustomerDTO;
 import model.ItemDTO;
 
 import java.sql.*;
@@ -24,12 +22,12 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO, String> {
 
     @Override
     public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", dto.getCode(),dto.getDescription(),String.valueOf(dto.getUnitPrice()),String.valueOf(dto.getQtyOnHand()));
+        return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)", dto.getCode(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand());
     }
 
     @Override
     public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", dto.getCode(),dto.getDescription(),String.valueOf(dto.getUnitPrice()),String.valueOf(dto.getQtyOnHand()));
+        return SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?", dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getCode());
     }
 
     @Override

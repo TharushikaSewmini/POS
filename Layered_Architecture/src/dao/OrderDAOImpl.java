@@ -1,10 +1,7 @@
 package dao;
 
-import db.DBConnection;
 import model.OrderDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,8 +28,8 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO, String> {
     }
 
     @Override
-    public boolean exist(String oId) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?",oId).next();
+    public boolean exist(String oid) throws SQLException, ClassNotFoundException {
+        return SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?",oid).next();
     }
 
     @Override
@@ -43,7 +40,7 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO, String> {
     @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
-        return (rst.next()) ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1) ): "OID-001";
+        return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1) ): "OID-001";
     }
 
 }
