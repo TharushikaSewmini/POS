@@ -1,6 +1,5 @@
 package dao;
 
-import db.DBConnection;
 import model.CustomerDTO;
 
 import java.sql.*;
@@ -11,9 +10,40 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 
-public class CustomerDAOImpl implements CustomerDAO {
+public class CustomerDAOImpl implements CrudDAO {
+    @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
 
     @Override
+    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+
+
+    /*@Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Customer");
         ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
@@ -56,5 +86,14 @@ public class CustomerDAOImpl implements CustomerDAO {
             return "C00-001";
         }
     }
+
+    public CustomerDTO getCustomerDetails() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Customer WHERE id=?");
+        if (rst.next()) {
+            return new CustomerDTO(rst.getString(1), rst.getString(2), rst.getString(3));
+        }
+        return null;
+
+    }*/
 
 }
