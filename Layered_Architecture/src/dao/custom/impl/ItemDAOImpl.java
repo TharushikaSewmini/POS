@@ -1,5 +1,6 @@
 package dao.custom.impl;
 
+import dao.SQLUtil;
 import dao.custom.ItemDAO;
 import model.ItemDTO;
 
@@ -11,46 +12,8 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 public class ItemDAOImpl implements ItemDAO {
-    @Override
-    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
-        return null;
-    }
 
     @Override
-    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public ItemDTO search(String s) throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean exist(String s) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public ArrayList<ItemDTO> getItemFromPrice(double price) {
-        return null;
-    }
-    /*@Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItems = new ArrayList<>();
@@ -99,6 +62,10 @@ public class ItemDAOImpl implements ItemDAO {
         } else {
             return "I00-001";
         }
-    }*/
+    }
 
+    @Override
+    public ArrayList<ItemDTO> getItemFromPrice(double price) {
+        return null;
+    }
 }
