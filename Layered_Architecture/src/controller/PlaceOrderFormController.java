@@ -57,11 +57,11 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+    /*private final CustomerDAO customerDAO = new CustomerDAOImpl();
     private final ItemDAO itemDAO = new ItemDAOImpl();
     private final OrderDAO orderDAO = new OrderDAOImpl();
     private final OrderDetailsDAO orderDetailDAO = new OrderDetailsDAOImpl();
-    private final QueryDAO queryDAO = new QueryDAOImpl();
+    private final QueryDAO queryDAO = new QueryDAOImpl();*/
 
     public void initialize() throws SQLException, ClassNotFoundException {
 
@@ -323,11 +323,11 @@ public class PlaceOrderFormController {
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
-
+/*
         try {
             Connection connection = DBConnection.getDbConnection().getConnection();
             /*if order id already exist*/
-            if (orderDAO.exist(orderId)) {
+            /*if (orderDAO.exist(orderId)) {
 
             }
 
@@ -372,7 +372,7 @@ public class PlaceOrderFormController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
+        return false;*/
     }
 
 
