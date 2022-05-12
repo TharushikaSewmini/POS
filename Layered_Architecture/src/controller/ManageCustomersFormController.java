@@ -152,7 +152,9 @@ public class ManageCustomersFormController {
                 }
 
                 // Loose Coupling
-                customerDAO.save(new CustomerDTO(id, name, address));
+                // DI
+                CustomerBOImpl customerBO =new CustomerBOImpl();
+                customerBO.saveCustomer(new CustomerDTO(id, name, address));
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
@@ -171,7 +173,9 @@ public class ManageCustomersFormController {
 
                 //Customer update
                 // Loose Coupling
-                customerDAO.update(new CustomerDTO(id, name, address));
+                // DI
+                CustomerBOImpl customerBO = new CustomerBOImpl();
+                customerBO.updateCustomer(new CustomerDTO(id, name, address));
 
 
             } catch (SQLException e) {
@@ -192,7 +196,8 @@ public class ManageCustomersFormController {
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         // Loose Coupling
-        return customerDAO.exist(id);
+        CustomerBOImpl customerBO = new CustomerBOImpl();
+        return customerBO.customerExist(id);
     }
 
 
@@ -205,7 +210,8 @@ public class ManageCustomersFormController {
             }
 
             // Loose Coupling
-            customerDAO.delete(id);
+            CustomerBOImpl customerBO = new CustomerBOImpl();
+            customerBO.deleteCustomer(id);
 
             tblCustomers.getItems().remove(tblCustomers.getSelectionModel().getSelectedItem());
             tblCustomers.getSelectionModel().clearSelection();
@@ -222,7 +228,8 @@ public class ManageCustomersFormController {
         try {
 
             // Loose Coupling
-            return customerDAO.generateNewID();
+            CustomerBOImpl customerBO= new CustomerBOImpl();
+            return customerBO.generateNewCustomerId();
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
