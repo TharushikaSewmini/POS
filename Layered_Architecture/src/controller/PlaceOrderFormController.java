@@ -1,5 +1,6 @@
 package controller;
 
+import bo.PurchaseOrderBO;
 import bo.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -58,6 +59,9 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
+    // Property Injection(DI)
+    PurchaseOrderBO purchaseOrderBO = new PurchaseOrderBOImpl();
+
     public void initialize() throws SQLException, ClassNotFoundException {
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -109,8 +113,6 @@ public class PlaceOrderFormController {
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
-                        //DI // Tight Coupling
-                        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
                         CustomerDTO search = purchaseOrderBO.searchCustomer(newValue + "");
                         txtCustomerName.setText(search.getName());
 
@@ -142,8 +144,6 @@ public class PlaceOrderFormController {
                     }
 
                     //search item
-                    // DI // Tight Coupling
-                    PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
                     ItemDTO item = purchaseOrderBO.searchItem(newItemCode + "");
 
                     txtDescription.setText(item.getDescription());
@@ -189,21 +189,15 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        //DI //Tight Coupling
-        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
         return purchaseOrderBO.checkItemIsAvailable(code);
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        //DI //Tight Coupling
-        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
         return purchaseOrderBO.checkCustomerIsAvailable(id);
     }
 
     public String generateNewOrderId() {
         try {
-            //DI //Tight Coupling
-            PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
             return purchaseOrderBO.generateNewOrderID();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
@@ -215,8 +209,6 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            //DI // Tight Coupling
-            PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
             ArrayList<CustomerDTO> all = purchaseOrderBO.getAllCustomers();
             for (CustomerDTO customer : all) {
                 cmbCustomerId.getItems().add(customer.getId());
@@ -232,8 +224,6 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-            //DI //Tight Coupling
-            PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
             ArrayList<ItemDTO> all = purchaseOrderBO.getAllItems();
             for (ItemDTO item : all) {
                 cmbItemCode.getItems().add(item.getCode());
@@ -332,9 +322,6 @@ public class PlaceOrderFormController {
     }
 
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
-        // tight coupling
-        // DI
-        PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
         try {
             return purchaseOrderBO.purchaseOrder(orderId, orderDate, customerId, orderDetails);
         } catch (SQLException throwables) {
@@ -348,8 +335,6 @@ public class PlaceOrderFormController {
 
     public ItemDTO findItem(String code) {
         try {
-            //DI //Tight Coupling
-            PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
             return purchaseOrderBO.searchItem(code);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to find the Item " + code, e);
