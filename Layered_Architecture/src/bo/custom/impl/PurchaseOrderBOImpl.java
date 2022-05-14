@@ -20,7 +20,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     // Exposed the object creation logic
     CustomerDAO customerDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
-    private final ItemDAO itemDAO = new ItemDAOImpl();
+    ItemDAO itemDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     private final OrderDAO orderDAO = new OrderDAOImpl();
     private final OrderDetailsDAO orderDetailDAO = new OrderDetailsDAOImpl();
     private final QueryDAO queryDAO = new QueryDAOImpl();
