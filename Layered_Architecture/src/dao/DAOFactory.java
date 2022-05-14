@@ -1,5 +1,8 @@
 package dao;
 
+import dao.custom.CustomerDAO;
+import dao.custom.impl.CustomerDAOImpl;
+
 public class DAOFactory {
     private static DAOFactory daoFactory;
 
@@ -7,6 +10,7 @@ public class DAOFactory {
 
     }
 
+    // Singleton
     public static DAOFactory getDaoFactory() {
         if(daoFactory == null) {
             daoFactory = new DAOFactory();
@@ -14,14 +18,15 @@ public class DAOFactory {
         return daoFactory;
     }
 
+    // public final static integer values
     public enum DAOTypes {
         CUSTOMER, ITEM, ORDER, ORDERDETAILS, QUERYDAO
     }
 
-    public void getDAO(DAOTypes types) {
+    public CustomerDAO getDAO(DAOTypes types) {
         switch(types) {
             case CUSTOMER:
-                return;
+                return new CustomerDAOImpl();
 
             case ITEM:
                 return;

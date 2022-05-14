@@ -1,6 +1,7 @@
 package bo.custom.impl;
 
 import bo.custom.PurchaseOrderBO;
+import dao.DAOFactory;
 import dao.custom.*;
 import dao.custom.impl.*;
 import db.DBConnection;
@@ -18,7 +19,7 @@ import java.util.List;
 public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     // Exposed the object creation logic
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+    CustomerDAO customerDAO = DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
     private final ItemDAO itemDAO = new ItemDAOImpl();
     private final OrderDAO orderDAO = new OrderDAOImpl();
     private final OrderDetailsDAO orderDetailDAO = new OrderDetailsDAOImpl();
