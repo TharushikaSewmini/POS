@@ -7,5 +7,5 @@ import entity.Customer;
 import java.util.ArrayList;
 
 public interface CustomerDAO extends CrudDAO<Customer, String> {
-    public ArrayList<CustomerDTO> getAllCustomersByAddress(String address);
+    public ArrayList<Customer> getAllCustomersByAddress(String address);
 }
